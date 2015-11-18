@@ -1,14 +1,125 @@
 package abolinaga.tander;
 
-import android.app.Activity;
-import android.os.Bundle;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-public class RegisterLoginActivity extends Activity 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+@SuppressLint("DefaultLocale") public class RegisterLoginActivity extends Activity implements OnClickListener 
 {
+	private EditText editTextName;
+	private EditText editTextUserName;
+	private EditText editTextPassword;
+	private EditText editTextEmail;
+	private EditText editTextLanguageToTeach;
+	private EditText editTextLanguageToLearn;
+	
+	private Button buttonRegister;
+	
+	private static final String REGISTER_URL = "http://abtander.16mb.com/UserRegistration/register.php";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registerlogin);
+		
+		editTextName = (EditText) findViewById(R.id.editTextName);
+		editTextUserName = (EditText) findViewById(R.id.editTextUserName);
+		editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+		editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+		editTextLanguageToTeach = (EditText) findViewById(R.id.editTextLanguageToTeach);
+		editTextLanguageToLearn = (EditText) findViewById(R.id.editTextLanguageToLearn);
+		
+		buttonRegister = (Button) findViewById(R.id.buttonRegister);
+		
+		buttonRegister.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View _v) 
+	{
+		if(_v == buttonRegister)
+		{
+            registerUser();
+        }
+		else
+		{
+			/* Do Nothing */
+		}
+	}
+
+	private void registerUser() 
+	{
+	    String strName = editTextName.getText().toString().trim().toLowerCase();
+	    String strUserName = editTextUserName.getText().toString().trim().toLowerCase();
+	    String strPassword = editTextPassword.getText().toString().trim().toLowerCase();
+	    String strEmail = editTextEmail.getText().toString().trim().toLowerCase();
+	    String strLanguageToTeach = editTextLanguageToTeach.getText().toString().toLowerCase();
+	    String strLanguageToLearn = editTextLanguageToLearn.getText().toString().toLowerCase();
+	    
+	    register(strName,strUserName,strPassword,strEmail, strLanguageToTeach, strLanguageToLearn);
+	}
+
+	private void register(String _strName, String _strUserName, String _strPassword, String _strEmail, String _strLanguageToTeach, String _strLanguageToLearn) 
+	{
+		String urlSuffix = "?name="+_strName+"&username="+_strUserName+"&password="+_strPassword+"&email="+_strEmail+"&languagetoteach="+_strLanguageToTeach+"&languagetolearn="+_strLanguageToLearn;
+		
+		class RegisterUser extends AsyncTask<String, Void, String>
+		{
+			ProgressDialog pdLoading;
+			
+			@Override
+            protected void onPreExecute()
+			{
+                super.onPreExecute();
+                pdLoading = ProgressDialog.show(RegisterLoginActivity.this, "Please Wait",null, true, true);
+            }
+			
+			@Override
+			protected void onPostExecute(String _strResult) 
+			{
+				super.onPostExecute(_strResult);
+				pdLoading.dismiss();
+				Toast.makeText(getApplicationContext(),_strResult,Toast.LENGTH_LONG).show();
+			}
+			
+			@Override
+			protected String doInBackground(String... _strParams) 
+			{
+				String str = _strParams[0];
+				BufferedReader bufferedReader = null;
+				try
+				{
+					URL url = new URL(REGISTER_URL+str);
+					HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					
+					String strResult;
+					
+					strResult = bufferedReader.readLine();
+					
+					return strResult;
+				}
+				catch(Exception e)
+				{
+					return null;
+				}
+			}
+		}
+		
+		RegisterUser ru = new RegisterUser();
+        ru.execute(urlSuffix);
 	}
 }

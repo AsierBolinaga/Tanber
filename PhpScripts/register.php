@@ -3,7 +3,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
  $name = $_POST['name']; 
  $username = $_POST['username']; 
  $password = $_POST['password']; 
- $email = $_POST['email'];  
+ $email = $_POST['email']; 
+ $languagetoteach = $_POST['languagetoteach']; 
+ $languagetolearn = $_POST['languagetolearn'];  
  if($name == '' || $username == '' || $password == '' || $email == '')
  { 
  echo 'please fill all values'; 
@@ -19,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
  }
  else
  {  
- $sql = "INSERT INTO users (name,username,password,email) VALUES('$name','$username','$password','$email')"; 
+ $sql = "INSERT INTO users (name,username,password,email) VALUES('$name','$username','$password','$email','$languagetoteach','$languagetolearn')"; 
  if(mysqli_query($con,$sql))
  { 
  echo 'successfully registered'; 
