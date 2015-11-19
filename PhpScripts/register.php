@@ -1,18 +1,17 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
-	$name = $_POST['name']; 
-	$username = $_POST['username']; 
-	$password = $_POST['password']; 
-	$email = $_POST['email']; 
-	$languagetoteach = $_POST['languagetoteach']; 
-	$languagetolearn = $_POST['languagetolearn'];  
-	if($name == '' || $username == '' || $password == '' || $email == '' || $languagetoteach == '' || $languagetolearn == '')
-	{ 
+	 $name = $_POST['name']; 
+	 $username = $_POST['username']; 
+	 $password = $_POST['password']; 
+	 $email = $_POST['email'];  
+
+	 if($name == '' || $username == '' || $password == '' || $email == '')
+	 { 
 		echo 'please fill all values'; 
-	}
-	else
-	{ 
+	 }
+	 else
+	 { 
 		require_once('dbConnect.php'); 
 		$sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";  
 		$check = mysqli_fetch_array(mysqli_query($con,$sql));  
@@ -22,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 		}
 		else
 		{
-			$sql = "INSERT INTO users (name,username,password,email) VALUES('$name','$username','$password','$email','$languagetoteach','$languagetolearn')"; 
+			$sql = "INSERT INTO users (name,username,password,email) VALUES('$name','$username','$password','$email')"; 
 			if(mysqli_query($con,$sql))
 			{ 
 				echo 'successfully registered'; 
@@ -33,9 +32,5 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 			} 
 		} 
 		mysqli_close($con); 
-	}
-}
-else
-{
-	echo 'error';
-}
+	 }
+ }
