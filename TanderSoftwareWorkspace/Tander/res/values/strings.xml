@@ -6,7 +6,11 @@
 	<string name="string_enter_name">Enter your name</string>    
 	<string name="string_choose_username">Choose your username</string>    
 	<string name="string_choose_password">Choose your password</string>    
-	<string name="string_enter_email">Enter your email</string>  
+	<string name="string_enter_email">Enter your email</string>
+	<string name="string_already_registered">Already Registered</string> 
+	<string name="string_username">Enter Username</string>  
+	<string name="string_password">Enter Password</string>  
 	<string name="button_register">Register</string>
+	<string name="button_login">Login</string>
 	
 </resources>

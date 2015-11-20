@@ -6,3 +6,4 @@
 	define('DB','u987120479_t0000');
 	
 	$con = mysqli_connect(HOST, USERNAME, PASSWORD, DB) or die('Unable to connect');
+?>
