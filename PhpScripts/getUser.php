@@ -1,30 +1,28 @@
-<?php 
+<?php
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	 
+	require_once('dbConnect.php');
+	$sql = "SELECT * FROM TanderUsers WHERE username='$username' and password='$password'";
 
- //Getting the requested id 
- $id = $_GET['id'];  
- 
- //Importing database 
- require_once('dbConnect.php');  
- 
- //Creating sql query with where clause to get an specific employee
- $sql = "SELECT * FROM TanderUsers WHERE id=$id";  
- 
- //getting result  
- $r = mysqli_query($con,$sql);  
- 
- //pushing result to an array  
- $result = array(); 
- $row = mysqli_fetch_array($r); 
- array_push($result,array( 
- "id"=>$row['id'], 
- "name"=>$row['name'], 
- "username"=>$row['username'], 
- "password"=>$row['password'], 
- "email"=>$row['email'] 
- ));  
- 
- //displaying in json format  
- echo json_encode(array('result'=>$result)); 
+	$res = mysqli_query($con,$sql);
+	
+	$result = array();
+	$row = mysqli_fetch_array($res);
 
- mysqli_close($con);
+	if(isset($row))
+	{
+		array_push($result,array(
+			"name"=>$row['name'],
+			"username"=>$row['username'],
+			"email"=>$row['email']
+			));
+		echo json_encode(array('result'=>$result));
+	}
+	else	
+	{
+		echo "Invalid Username or Password";
+	}
+	
+	mysqli_close($con);
 ?>

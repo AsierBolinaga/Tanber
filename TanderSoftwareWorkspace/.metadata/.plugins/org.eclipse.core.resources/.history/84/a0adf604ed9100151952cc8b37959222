@@ -1,0 +1,7 @@
+package abolinaga.tander;
+
+import android.app.Application;
+
+public class ChatActivity extends Application {
+
+}

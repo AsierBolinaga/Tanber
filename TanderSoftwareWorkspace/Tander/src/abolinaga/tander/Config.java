@@ -3,11 +3,11 @@ package abolinaga.tander;
 public class Config 
 {
 	//Address of our scripts of the CRUD    
-	public static final String URL_REGISTER = "http://abtander.16mb.com/public_html/PhpScripts/registerUser.php";   
-	public static final String URL_GET_ALL = "http://abtander.16mb.com/public_html/PhpScripts/getAll.php";   
-	public static final String URL_GET_USER = "http://abtander.16mb.com/public_html/PhpScripts/getUser.php";     
-	public static final String URL_UPDATE_USER = "http://abtander.16mb.com/public_html/PhpScripts/updateUser.php";    
-	public static final String URL_DELETE_USER = "http://abtander.16mb.com/public_html/PhpScripts/deleteUser.php"; 
+	public static final String URL_REGISTER = "http://abtander.16mb.com/PhpScripts/registerUser.php";   
+	public static final String URL_GET_ALL = "http://abtander.16mb.com/PhpScripts/getAll.php";   
+	public static final String URL_GET_USER = "http://abtander.16mb.com/PhpScripts/getUser.php";     
+	public static final String URL_UPDATE_USER = "http://abtander.16mb.com/PhpScripts/updateUser.php";    
+	public static final String URL_DELETE_USER = "http://abtander.16mb.com/PhpScripts/deleteUser.php"; 
 	
 	//Keys that will be used to send the request to php scripts   
 	public static final String KEY_USER_ID = "id";    

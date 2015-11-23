@@ -13,22 +13,31 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 	 else
 	 { 
 		require_once('dbConnect.php'); 
-		$sql = "SELECT * FROM TanderUsers WHERE username='$username' OR email='$email'";  
+		$sql = "SELECT * FROM TanderUsers WHERE email='$email'";  
 		$check = mysqli_fetch_array(mysqli_query($con,$sql));  
 		if(isset($check))
 		{ 
-			echo 'username or email already exist'; 
+			echo 'This email is already registered in Tander.'; 
 		}
 		else
 		{
-			$sql = "INSERT INTO TanderUsers (name,username,password,email) VALUES name','$username','$password','$email')"; 
-			if(mysqli_query($con,$sql))
+			$sql = "SELECT * FROM TanderUsers WHERE username='$username'";  
+			$check = mysqli_fetch_array(mysqli_query($con,$sql)); 
+			if(isset($check))
 			{ 
-				echo 'successfully registered'; 
+				echo 'The user name is already in use.'; 
 			}
 			else
-			{ 
-				echo 'oops! Please try again!'; 
+			{
+				$sql = "INSERT INTO TanderUsers (name,username,password,email) VALUES name','$username','$password','$email')"; 
+				if(mysqli_query($con,$sql))
+				{ 
+					echo 'successfully registered'; 
+				}
+				else
+				{ 
+					echo 'oops! Please try again!'; 
+				}
 			} 
 		} 
 		mysqli_close($con); 

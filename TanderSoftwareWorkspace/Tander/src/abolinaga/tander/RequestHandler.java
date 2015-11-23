@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler 
 {
-	public String sendPostRequest(String requestURL,  HashMap<String, String> postDataParams) 
+	public String sendPostRequest(String _strRequestURL,  HashMap<String, String> _hmPostDataParams) 
 	{
 		URL url;
 		
@@ -25,7 +25,7 @@ public class RequestHandler
 		try
 		{
 			//Initializing URL
-			url = new URL(requestURL);
+			url = new URL(_strRequestURL);
 			
 			//Creating an httmlurl connection
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -44,7 +44,7 @@ public class RequestHandler
 			//We are using a method getPostDataString which is defined below            
 			BufferedWriter writer = new BufferedWriter(                    
 					new OutputStreamWriter(os, "UTF-8"));            
-			writer.write(getPostDataString(postDataParams));
+			writer.write(getPostDataString(_hmPostDataParams));
 			
 			writer.flush();            
 			writer.close();            
@@ -63,6 +63,10 @@ public class RequestHandler
 					sb.append(response);               
 				}            
 			}
+			else
+			{
+				/* Do Nothing */
+			}
 		}
 		catch(Exception e)
 		{
@@ -72,38 +76,13 @@ public class RequestHandler
 		
 		return sb.toString();
 	}
-	
-	 public String sendGetRequestParam(String requestURL, String id)
-	 {        
-		 StringBuilder sb =new StringBuilder();       
-		 
-		 try 
-		 {            
-			 URL url = new URL(requestURL+id);            
-			 HttpURLConnection con = (HttpURLConnection) url.openConnection();           
-			 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));             
-			 
-			 String s;            
-			 
-			 while((s=bufferedReader.readLine())!=null)
-			 {                
-				 sb.append(s+"\n");            
-			 }
-		 }
-		 catch(Exception e)
-		 {        
-			 return e.getMessage();
-		 }        
-		 
-		 return sb.toString();   
-	 }
 	 
-	 private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException 
+	 private String getPostDataString(HashMap<String, String> _hmParams) throws UnsupportedEncodingException 
 	 {       
 		 StringBuilder result = new StringBuilder();        
 		 boolean first = true;       
 		 
-		 for (Map.Entry<String, String> entry : params.entrySet())
+		 for (Map.Entry<String, String> entry : _hmParams.entrySet())
 		 {            
 			 if (first)               
 			 {
