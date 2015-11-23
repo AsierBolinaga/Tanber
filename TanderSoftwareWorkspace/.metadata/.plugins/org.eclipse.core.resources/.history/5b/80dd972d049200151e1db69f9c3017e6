@@ -1,0 +1,14 @@
+package abolinaga.tander.custom;
+
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+
+/*
+ * This is a common activity that all other activities of the app can extend to
+ * inherit the common behaviors like implementing common interfaces that can be
+ * used in all child activities
+ */
+public class CustomActivity extends FragmentActivity 
+{
+
+}

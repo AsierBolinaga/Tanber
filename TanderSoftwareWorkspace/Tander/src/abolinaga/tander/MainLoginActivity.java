@@ -1,6 +1,5 @@
 package abolinaga.tander;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +11,9 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class MainLoginActivity extends Activity implements View.OnClickListener
+import abolinaga.tander.custom.CustomActivity;
+
+public class MainLoginActivity extends CustomActivity
 {
     private EditText editTextLogingUserName;
     private EditText editTextLogingPassword;
@@ -41,9 +42,8 @@ public class MainLoginActivity extends Activity implements View.OnClickListener
     public void onClick(View _v) 
     {
         if(_v == buttonGoToRegister)
-        {
-        	Intent intent = new Intent(MainLoginActivity.this, RegisterActivity.class);                    
-			startActivity(intent);
+        {                    
+			startActivity(new Intent(MainLoginActivity.this, RegisterActivity.class));
         }
         else if(_v == buttonLogin)
         {
@@ -79,8 +79,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener
     			if(_strResult.equalsIgnoreCase("Invalid Username or Password"))
     			{      
     				Toast.makeText(MainLoginActivity.this,_strResult,Toast.LENGTH_LONG).show();  
-    				 
-    				
     			}
     			else
     			{                    

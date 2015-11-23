@@ -1,58 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"  
-    android:orientation="vertical"        
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"       
     tools:context=".RegisterActivity">
     
-    <TextView 
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/string_enter_name"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/pad_20dp"
+        android:paddingLeft="@dimen/pad_15dp"
+        android:paddingRight="@dimen/pad_15dp"
+        android:paddingTop="@dimen/pad_20dp" >
+        
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:src="@drawable/logo_login" />
+        
+        <EditText
+            android:id="@+id/editTextName"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_username"
+            android:hint="@string/string_enter_name" >
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editTextUserName"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_username"
+            android:hint="@string/string_choose_username" >
+        </EditText>
     
-    <EditText 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"  
-        android:id="@+id/editTextName"/>
-    
-    <TextView        
-        android:layout_width="wrap_content"        
-        android:layout_height="wrap_content"        
-        android:text="@string/string_choose_username" />     
-      
-    <EditText        
-        android:layout_width="fill_parent"        
-        android:layout_height="wrap_content"  
-        android:inputType="text"      
-        android:id="@+id/editTextUserName" />     
+       <EditText
+            android:id="@+id/editTextPassword"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_pwd"
+            android:hint="@string/string_choose_password"
+            android:inputType="textPassword" >
+        </EditText>
         
-    <TextView        
-        android:layout_width="wrap_content"        
-        android:layout_height="wrap_content"        
-        android:text="@string/string_choose_password" />     
-        
-    <EditText        
-        android:layout_width="fill_parent"        
-        android:layout_height="wrap_content"        
-        android:inputType="textPassword"        
-        android:id="@+id/editTextPassword" />    
-        
-    <TextView        
-        android:layout_width="wrap_content"        
-        android:layout_height="wrap_content"        
-        android:text="@string/string_enter_email" />     
-        
-    <EditText        
-        android:layout_width="fill_parent"        
-        android:layout_height="wrap_content"        
-        android:inputType="textEmailAddress"        
-        android:id="@+id/editTextEmail" />  
-        
-    <Button        
-        android:layout_width="fill_parent"       
-        android:layout_height="wrap_content"        
-        android:text="@string/button_register"        
-        android:id="@+id/buttonRegister" />
-    
-</LinearLayout>
+        <EditText
+            android:id="@+id/editTextEmail"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_email"
+            android:hint="@string/string_enter_email"
+            android:inputType="textEmailAddress" >
+        </EditText>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/btn_white_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:layout_weight="1"
+            android:text="@string/button_register" />
+    </LinearLayout>
+</ScrollView>

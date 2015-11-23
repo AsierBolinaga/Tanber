@@ -1,0 +1,7 @@
+package abolinaga.tander;
+
+import abolinaga.tander.custom.CustomActivity;
+
+public class ChatActivity extends CustomActivity {
+
+}
