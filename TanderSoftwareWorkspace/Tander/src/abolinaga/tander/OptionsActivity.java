@@ -1,11 +1,12 @@
 package abolinaga.tander;
 
+import com.parse.ParseUser;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import abolinaga.tander.custom.CustomActivity;
 
 public class OptionsActivity extends CustomActivity
@@ -14,6 +15,9 @@ public class OptionsActivity extends CustomActivity
 	
 	private Button buttonFindTanderFriend;
     private Button buttonViewTanderFriends;
+    
+    /** The user. */
+	public static ParseUser user;
 	
     @Override
     protected void onCreate(Bundle _bdSavedInstanceState)
@@ -23,12 +27,14 @@ public class OptionsActivity extends CustomActivity
 
         textView = (TextView) findViewById(R.id.textViewUserName);
 
-        Bundle reicieveUserName = getIntent().getExtras();
-
-        textView.setText("Welcome " + reicieveUserName.getString("USER_NAME"));
+        user.setUsername(getIntent().getStringExtra("USER_NAME"));
+        
+        textView.setText("Welcome " + user.getUsername());
         
         buttonFindTanderFriend = (Button) findViewById(R.id.buttonFindTanderFriend);
         buttonViewTanderFriends = (Button) findViewById(R.id.buttonViewTanderFriends);
+        
+        GetFriendsList();
         
         //Setting listeners to button
         buttonFindTanderFriend.setOnClickListener(this);
@@ -51,4 +57,9 @@ public class OptionsActivity extends CustomActivity
 			/* Do Nothing */
 		}
 	}
+    
+    private void GetFriendsList()
+    {
+    	
+    }
 }

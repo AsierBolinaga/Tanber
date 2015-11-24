@@ -3,18 +3,16 @@
  {
 	 $username = $_POST['username']; 
 	 $password = $_POST['password'];
-	 
-	 //Importing Database Script  
+	   
 	 require_once('dbConnect.php');
  
-	 //Creating sql query
-	 $sql = "select * from users where username='$username' and password='$password'";
+	 $sql = "SELECT * FROM TanderUsers WHERE username='$username' and password='$password'";
 	 
 	 $check = mysqli_fetch_array(mysqli_query($con,$sql));
 	 
 	 if(isset($check))
 	 {
-		 echo "success";
+		 echo "successfully logged";
 	 }
 	 else
 	 {

@@ -24,6 +24,7 @@
         <activity android:name="abolinaga.tander.RegisterActivity"></activity>
         <activity android:name="abolinaga.tander.OptionsActivity"></activity>
         <activity android:name="abolinaga.tander.TanderFriendsList"></activity>
+        <activity android:name="abolinaga.tander.ChatActivity"></activity>
     </application>
 
 </manifest>

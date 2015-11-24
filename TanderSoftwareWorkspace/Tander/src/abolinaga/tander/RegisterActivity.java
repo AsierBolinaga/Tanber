@@ -2,7 +2,7 @@ package abolinaga.tander;
 
 import java.util.HashMap;
 
-import android.app.Activity;
+import abolinaga.tander.custom.CustomActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class RegisterActivity extends Activity implements View.OnClickListener
+public class RegisterActivity extends CustomActivity
 {
     private EditText editTextName;
     private EditText editTextUsername;

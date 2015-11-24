@@ -1,39 +1,39 @@
 package abolinaga.tander;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.hardware.camera2.CameraCharacteristics.Key;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.SimpleAdapter;
 import abolinaga.tander.custom.CustomActivity;
-import abolinaga.tander.utils.Const;
-import abolinaga.tander.utils.Utils;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+
 import com.parse.ParseUser;
 
 /**
  * The Class UserList is the Activity class. It shows a list of all users of
  * this app. It also shows the Offline/Online status of users.
  */
-public class TanderFriendsList extends CustomActivity
+public class TanderFriendsList extends CustomActivity implements ListView.OnItemClickListener 
 {
+	private ListView listView;
+	
+	/** The TanderFriends list. */
+	ArrayList<HashMap<String,String>> hmTanderFriendsList = new ArrayList<HashMap<String, String>>();
 
-	/** The Chat list. */
-	private ArrayList<ParseUser> uList;
-
-	/** The user. */
-	public static ParseUser user;
+	
+	private String ALLFRIENDS_STRING;
 
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
@@ -43,10 +43,13 @@ public class TanderFriendsList extends CustomActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tanderfriendlist);
+		
+		listView = (ListView) findViewById(R.id.list);
+        listView.setOnItemClickListener(this);
+        
+		//getActionBar().setDisplayHomeAsUpEnabled(false);
 
-		getActionBar().setDisplayHomeAsUpEnabled(false);
-
-		updateUserStatus(true);
+		//updateUserStatus(true);
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +59,7 @@ public class TanderFriendsList extends CustomActivity
 	protected void onDestroy()
 	{
 		super.onDestroy();
-		updateUserStatus(false);
+		//updateUserStatus(false);
 	}
 
 	/* (non-Javadoc)
@@ -78,111 +81,92 @@ public class TanderFriendsList extends CustomActivity
 	 */
 	private void updateUserStatus(boolean online)
 	{
-		user.put("online", online);
-		user.saveEventually();
+		OptionsActivity.user.put("online", online);
+		OptionsActivity.user.saveEventually();
+	}
+	
+	/**
+	 * Show list of Friends.
+	 */
+	private void ShowTanderFriends()
+	{
+		JSONObject jsonObject = null;
+		
+		try
+		{
+			jsonObject = new JSONObject(ALLFRIENDS_STRING);
+			JSONArray jsonResult = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
+			
+			for(int iLoop = 0; iLoop<jsonResult.length(); iLoop++)
+			{
+                JSONObject jo = jsonResult.getJSONObject(iLoop);
+                String name = jo.getString(Config.TAG_NAME);
+
+                HashMap<String,String> hmTanderFriends = new HashMap<String,String>();
+                hmTanderFriends.put(Config.TAG_NAME,name);
+                hmTanderFriendsList.add(hmTanderFriends);
+            }
+		
+			ListAdapter laAdapter = new SimpleAdapter(
+					TanderFriendsList.this, hmTanderFriendsList, R.layout.list_item,
+	                new String[]{Config.TAG_NAME},
+	                new int[]{R.id.name});
+	
+	        listView.setAdapter(laAdapter);
+		}
+        catch(JSONException e)
+		{
+			 e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Load list of users.
+	 * Load list of Friends.
 	 */
 	private void loadUserList()
 	{
-		final ProgressDialog dia = ProgressDialog.show(this, null,
-				getString(R.string.alert_loading));
-		ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
-				.findInBackground(new FindCallback<ParseUser>() {
+		class GetAllTanderFriends extends AsyncTask<Void, Void, String>
+		{
+			ProgressDialog pdLoading;
+			
+			@Override
+			protected void onPreExecute() 
+			{
+				super.onPreExecute();
+				pdLoading = ProgressDialog.show(TanderFriendsList.this,"Fetching Data","Wait...",false,false);
+			}
+			
+			@Override
+			protected void onPostExecute(String _strResult) 
+			{
+				super.onPostExecute(_strResult);
+				pdLoading.dismiss();               
+				ALLFRIENDS_STRING = _strResult;                
+				ShowTanderFriends();
+			}
 
-					@Override
-					public void done(List<ParseUser> li, ParseException e)
-					{
-						dia.dismiss();
-						if (li != null)
-						{
-							if (li.size() == 0)
-								Toast.makeText(TanderFriendsList.this,
-										R.string.msg_no_user_found,
-										Toast.LENGTH_SHORT).show();
-
-							uList = new ArrayList<ParseUser>(li);
-							ListView list = (ListView) findViewById(R.id.list);
-							list.setAdapter(new UserAdapter());
-							list.setOnItemClickListener(new OnItemClickListener() {
-
-								@Override
-								public void onItemClick(AdapterView<?> arg0,
-										View arg1, int pos, long arg3)
-								{
-									startActivity(new Intent(TanderFriendsList.this,
-											Chat.class).putExtra(
-											Const.EXTRA_DATA, uList.get(pos)
-													.getUsername()));
-								}
-							});
-						}
-						else
-						{
-							Utils.showDialog(
-									TanderFriendsList.this,
-									getString(R.string.err_users) + " "
-											+ e.getMessage());
-							e.printStackTrace();
-						}
-					}
-				});
+			@Override
+			protected String doInBackground(Void... _vParams) 
+			{
+				RequestHandler rh = new RequestHandler();
+				String strResult = rh.sendGetRequest(Config.URL_GET_ALL);
+				return strResult;
+			}
+		
+		}
+		
+		GetAllTanderFriends gatf = new GetAllTanderFriends();
+		gatf.execute();
 	}
 
-	/**
-	 * The Class UserAdapter is the adapter class for User ListView. This
-	 * adapter shows the user name and it's only online status for each item.
-	 */
-	private class UserAdapter extends BaseAdapter
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
 	{
-
-		/* (non-Javadoc)
-		 * @see android.widget.Adapter#getCount()
-		 */
-		@Override
-		public int getCount()
-		{
-			return uList.size();
-		}
-
-		/* (non-Javadoc)
-		 * @see android.widget.Adapter#getItem(int)
-		 */
-		@Override
-		public ParseUser getItem(int arg0)
-		{
-			return uList.get(arg0);
-		}
-
-		/* (non-Javadoc)
-		 * @see android.widget.Adapter#getItemId(int)
-		 */
-		@Override
-		public long getItemId(int arg0)
-		{
-			return arg0;
-		}
-
-		/* (non-Javadoc)
-		 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-		 */
-		@Override
-		public View getView(int pos, View v, ViewGroup arg2)
-		{
-			if (v == null)
-				v = getLayoutInflater().inflate(R.layout.chat_item, null);
-
-			ParseUser c = getItem(pos);
-			TextView lbl = (TextView) v;
-			lbl.setText(c.getUsername());
-			lbl.setCompoundDrawablesWithIntrinsicBounds(
-					c.getBoolean("online") ? R.drawable.ic_online
-							: R.drawable.ic_offline, 0, R.drawable.arrow, 0);
-
-			return v;
-		}
-
+		Intent intent = new Intent(TanderFriendsList.this, ChatActivity.class);
+		HashMap<String,String> hmMap =(HashMap)parent.getItemAtPosition(position);
+		String strFriendName = hmMap.get(Config.TAG_NAME).toString();
+		intent.putExtra("CHAT_TANDER_FRIEND_NAME",strFriendName);   
+		startActivity(intent);
 	}
 }

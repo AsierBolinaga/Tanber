@@ -5,7 +5,7 @@ public class Config
 	//Address of our scripts of the CRUD    
 	public static final String URL_REGISTER = "http://abtander.16mb.com/PhpScripts/registerUser.php";   
 	public static final String URL_GET_ALL = "http://abtander.16mb.com/PhpScripts/getAll.php";   
-	public static final String URL_GET_USER = "http://abtander.16mb.com/PhpScripts/getUser.php";     
+	public static final String URL_LOGGIN_USER = "http://abtander.16mb.com/PhpScripts/logginUser.php";     
 	public static final String URL_UPDATE_USER = "http://abtander.16mb.com/PhpScripts/updateUser.php";    
 	public static final String URL_DELETE_USER = "http://abtander.16mb.com/PhpScripts/deleteUser.php"; 
 	

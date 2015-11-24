@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 			}
 			else
 			{
-				$sql = "INSERT INTO TanderUsers (name,username,password,email) VALUES name','$username','$password','$email')"; 
+				$sql = "INSERT INTO TanderUsers (name,username,password,email) VALUES ('$name','$username','$password','$email')"; 
 				if(mysqli_query($con,$sql))
 				{ 
 					echo 'successfully registered'; 

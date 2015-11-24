@@ -20,28 +20,30 @@ public class RequestHandler
 	{
 		URL url;
 		
-		//StringBuilder object to store the message retrieved from the server        
+		/* StringBuilder object to store the message retrieved from the server */        
 		StringBuilder sb = new StringBuilder();
 		try
 		{
-			//Initializing URL
+			/* Initializing URL */
 			url = new URL(_strRequestURL);
 			
-			//Creating an httmlurl connection
+			/* Creating an httmlurl connection */
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			
-			//Configuring connection properties            
+			/* Configuring connection properties */            
 			conn.setReadTimeout(15000);            
 			conn.setConnectTimeout(15000);            
 			conn.setRequestMethod("POST");            
 			conn.setDoInput(true);            
 			conn.setDoOutput(true);
 			
-			//Creating an output stream           
+			/* Creating an output stream */           
 			OutputStream os = conn.getOutputStream();
 			
-			//Writing parameters to the request             
-			//We are using a method getPostDataString which is defined below            
+			/*
+			 * Writing parameters to the request 
+			 * We are using a method getPostDataString which is defined below             
+			 */        
 			BufferedWriter writer = new BufferedWriter(                    
 					new OutputStreamWriter(os, "UTF-8"));            
 			writer.write(getPostDataString(_hmPostDataParams));
@@ -55,12 +57,12 @@ public class RequestHandler
 			{                                
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));                
 				sb = new StringBuilder();                
-				String response;                
+				String strResponse;                
 				
-				//Reading server response                
-				while ((response = br.readLine()) != null)
+				/* Reading server response */                
+				while ((strResponse = br.readLine()) != null)
 				{                    
-					sb.append(response);               
+					sb.append(strResponse);               
 				}            
 			}
 			else
@@ -76,27 +78,51 @@ public class RequestHandler
 		
 		return sb.toString();
 	}
+	
+	public String sendGetRequest(String _strRequestURL)
+	{
+		StringBuilder sb =new StringBuilder();
+		
+		try 
+		{
+            URL url = new URL(_strRequestURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String strResponse;
+            while((strResponse=bufferedReader.readLine())!=null)
+            {
+                sb.append(strResponse + "\n");
+            }
+        }
+		catch(Exception e)
+		{
+			return e.getMessage();
+        }
+        return sb.toString();
+	}
 	 
-	 private String getPostDataString(HashMap<String, String> _hmParams) throws UnsupportedEncodingException 
-	 {       
-		 StringBuilder result = new StringBuilder();        
-		 boolean first = true;       
+	private String getPostDataString(HashMap<String, String> _hmParams) throws UnsupportedEncodingException 
+	{
+		
+		StringBuilder result = new StringBuilder();        
+		boolean first = true;       
 		 
-		 for (Map.Entry<String, String> entry : _hmParams.entrySet())
-		 {            
-			 if (first)               
-			 {
-				 first = false;            
-			 }
-			 else
-			 {
-				 result.append("&"); 
-			 }
+		for (Map.Entry<String, String> entry : _hmParams.entrySet())
+		{
+			if (first)               
+			{
+				first = false;            
+			}
+			else
+			{
+				result.append("&"); 
+			}
 			 
-			 result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));            
-			 result.append("=");            
-			 result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));        
-		 }         
-		 return result.toString();    
-	 }		 
+			result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));            
+			result.append("=");            
+			result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));        
+		}         
+		return result.toString();    
+	}		 
 }

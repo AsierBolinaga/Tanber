@@ -2,6 +2,7 @@ package abolinaga.tander.model;
 
 import java.util.Date;
 
+import abolinaga.tander.OptionsActivity;
 import abolinaga.tander.TanderFriendsList;
 
 /**
@@ -83,7 +84,7 @@ public class Conversation
 	 */
 	public boolean isSent()
 	{
-		return TanderFriendsList.user.getUsername().equals(sender);
+		return OptionsActivity.user.getUsername().equals(sender);
 	}
 
 	/**

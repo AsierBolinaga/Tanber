@@ -82,8 +82,8 @@ public class MainLoginActivity extends CustomActivity
     			}
     			else
     			{                    
-    				Toast.makeText(MainLoginActivity.this,"successfully loged",Toast.LENGTH_LONG).show();
-    				
+    				Toast.makeText(MainLoginActivity.this,_strResult,Toast.LENGTH_LONG).show();
+    			
     				Intent intent = new Intent(MainLoginActivity.this, OptionsActivity.class);                    
     				intent.putExtra("USER_NAME", strUsername);                    
     				startActivity(intent); 
@@ -98,7 +98,7 @@ public class MainLoginActivity extends CustomActivity
 				
 				RequestHandler rh = new RequestHandler();
 				
-				String strResult = rh.sendPostRequest(Config.URL_GET_USER, hmData);
+				String strResult = rh.sendPostRequest(Config.URL_LOGGIN_USER, hmData);
 				
 				return strResult;
 			}
