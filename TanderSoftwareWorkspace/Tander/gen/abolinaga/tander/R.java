@@ -76,8 +76,8 @@ public final class R {
         public static final int lbl2=0x7f080006;
         public static final int lbl3=0x7f080007;
         public static final int list=0x7f080000;
+        public static final int list_username=0x7f080008;
         public static final int llaa=0x7f080003;
-        public static final int name=0x7f080008;
         public static final int password=0x7f08000b;
         public static final int textViewUserName=0x7f08000e;
         public static final int txt=0x7f080001;
@@ -86,14 +86,15 @@ public final class R {
     }
     public static final class layout {
         public static final int chat=0x7f030000;
-        public static final int chat_item_rcv=0x7f030001;
-        public static final int chat_item_sent=0x7f030002;
-        public static final int list_item=0x7f030003;
-        public static final int login=0x7f030004;
-        public static final int optionhandler=0x7f030005;
-        public static final int options=0x7f030006;
-        public static final int register=0x7f030007;
-        public static final int tanderfriendlist=0x7f030008;
+        public static final int chat_item=0x7f030001;
+        public static final int chat_item_rcv=0x7f030002;
+        public static final int chat_item_sent=0x7f030003;
+        public static final int list_item=0x7f030004;
+        public static final int login=0x7f030005;
+        public static final int optionhandler=0x7f030006;
+        public static final int options=0x7f030007;
+        public static final int register=0x7f030008;
+        public static final int tanderfriendlist=0x7f030009;
     }
     public static final class string {
         public static final int action_settings=0x7f060002;

@@ -3,7 +3,7 @@
  require_once('dbConnect.php');  
  
  //Creating sql query
- $sql = "SELECT * FROM TanderUser"; 
+ $sql = "SELECT * FROM TanderUsers"; 
  
  //getting result  
  $r = mysqli_query($con,$sql);  
@@ -15,9 +15,8 @@
  while($row = mysqli_fetch_array($r))
  {  
 	//Pushing name and id in the blank array created  
-	array_push($result,array( 
-	"id"=>$row['id'], 
-	"name"=>$row['name'] 
+	array_push($result,array(
+	"username"=>$row['username'] 
 	)); 
  }  
  

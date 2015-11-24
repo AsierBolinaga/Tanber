@@ -26,7 +26,9 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 /**
  * The Class Chat is the Activity class that holds main chat screen. It shows
@@ -78,7 +80,7 @@ public class ChatActivity extends CustomActivity
 				| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
 		setTouchNClick(R.id.btnSend);
-
+		
 		strFrined = getIntent().getStringExtra("CHAT_TANDER_FRIEND_NAME");
 		getActionBar().setTitle(strFrined);
 
@@ -134,8 +136,8 @@ public class ChatActivity extends CustomActivity
 		imm.hideSoftInputFromWindow(txt.getWindowToken(), 0);
 
 		String s = txt.getText().toString();
-		final Conversation c = new Conversation(s, new Date(),
-				OptionsActivity.user.getUsername());
+		final Conversation c = new Conversation(s, new Date(), 
+								OptionsActivity.user.getUsername());
 		c.setStatus(Conversation.STATUS_SENDING);
 		convList.add(c);
 		adp.notifyDataSetChanged();

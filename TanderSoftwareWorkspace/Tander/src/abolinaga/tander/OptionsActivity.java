@@ -1,6 +1,8 @@
 package abolinaga.tander;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ public class OptionsActivity extends CustomActivity
     private Button buttonViewTanderFriends;
     
     /** The user. */
+    private String strUserName;
 	public static ParseUser user;
 	
     @Override
@@ -26,10 +29,21 @@ public class OptionsActivity extends CustomActivity
         setContentView(R.layout.options);
 
         textView = (TextView) findViewById(R.id.textViewUserName);
-
-        user.setUsername(getIntent().getStringExtra("USER_NAME"));
         
-        textView.setText("Welcome " + user.getUsername());
+        strUserName = getIntent().getStringExtra("USER_NAME");
+		final ParseUser pu = new ParseUser();
+		pu.setUsername(strUserName);
+		pu.setPassword("");
+		pu.signUpInBackground(new SignUpCallback() 
+		{
+			@Override
+			public void done(ParseException arg0) 
+			{
+				user = pu;
+			}
+		});
+        
+        textView.setText("Welcome " + strUserName);
         
         buttonFindTanderFriend = (Button) findViewById(R.id.buttonFindTanderFriend);
         buttonViewTanderFriends = (Button) findViewById(R.id.buttonViewTanderFriends);
@@ -39,6 +53,15 @@ public class OptionsActivity extends CustomActivity
         //Setting listeners to button
         buttonFindTanderFriend.setOnClickListener(this);
         buttonViewTanderFriends.setOnClickListener(this);
+        
+        updateUserStatus(true);
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    	updateUserStatus(false);
     }
     
     @Override
@@ -50,12 +73,24 @@ public class OptionsActivity extends CustomActivity
         }
 		else if(_v == buttonViewTanderFriends)
 		{
-			startActivity(new Intent(OptionsActivity.this, TanderFriendsList.class));
+			Intent intent = new Intent(OptionsActivity.this, TanderFriendsList.class);                  
+			startActivity(intent);
 		}
 		else
 		{
 			/* Do Nothing */
 		}
+	}
+    
+    /**
+	 * Update user status.
+	 * 
+	 * @param online
+	 *            true if user is online
+	 */
+	private void updateUserStatus(boolean _bOnline)
+	{
+
 	}
     
     private void GetFriendsList()

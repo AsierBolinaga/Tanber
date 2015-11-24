@@ -2,6 +2,7 @@ package abolinaga.tander.model;
 
 import java.util.Date;
 
+import abolinaga.tander.ChatActivity;
 import abolinaga.tander.OptionsActivity;
 import abolinaga.tander.TanderFriendsList;
 

@@ -87,6 +87,7 @@ public class MainLoginActivity extends CustomActivity
     				Intent intent = new Intent(MainLoginActivity.this, OptionsActivity.class);                    
     				intent.putExtra("USER_NAME", strUsername);                    
     				startActivity(intent); 
+    				finish();
     			}
     		}
 			

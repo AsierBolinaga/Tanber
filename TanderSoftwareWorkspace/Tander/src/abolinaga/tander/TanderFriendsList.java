@@ -31,7 +31,6 @@ public class TanderFriendsList extends CustomActivity implements ListView.OnItem
 	
 	/** The TanderFriends list. */
 	ArrayList<HashMap<String,String>> hmTanderFriendsList = new ArrayList<HashMap<String, String>>();
-
 	
 	private String ALLFRIENDS_STRING;
 
@@ -47,19 +46,7 @@ public class TanderFriendsList extends CustomActivity implements ListView.OnItem
 		listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(this);
         
-		//getActionBar().setDisplayHomeAsUpEnabled(false);
-
-		//updateUserStatus(true);
-	}
-
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.FragmentActivity#onDestroy()
-	 */
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		//updateUserStatus(false);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
 	}
 
 	/* (non-Javadoc)
@@ -70,19 +57,6 @@ public class TanderFriendsList extends CustomActivity implements ListView.OnItem
 	{
 		super.onResume();
 		loadUserList();
-
-	}
-
-	/**
-	 * Update user status.
-	 * 
-	 * @param online
-	 *            true if user is online
-	 */
-	private void updateUserStatus(boolean online)
-	{
-		OptionsActivity.user.put("online", online);
-		OptionsActivity.user.saveEventually();
 	}
 	
 	/**
@@ -100,17 +74,17 @@ public class TanderFriendsList extends CustomActivity implements ListView.OnItem
 			for(int iLoop = 0; iLoop<jsonResult.length(); iLoop++)
 			{
                 JSONObject jo = jsonResult.getJSONObject(iLoop);
-                String name = jo.getString(Config.TAG_NAME);
+                String strUsername = jo.getString(Config.TAG_USERNAME);
 
                 HashMap<String,String> hmTanderFriends = new HashMap<String,String>();
-                hmTanderFriends.put(Config.TAG_NAME,name);
+                hmTanderFriends.put(Config.TAG_USERNAME,strUsername);
                 hmTanderFriendsList.add(hmTanderFriends);
             }
 		
 			ListAdapter laAdapter = new SimpleAdapter(
 					TanderFriendsList.this, hmTanderFriendsList, R.layout.list_item,
-	                new String[]{Config.TAG_NAME},
-	                new int[]{R.id.name});
+	                new String[]{Config.TAG_USERNAME},
+	                new int[]{R.id.list_username});
 	
 	        listView.setAdapter(laAdapter);
 		}
@@ -161,12 +135,12 @@ public class TanderFriendsList extends CustomActivity implements ListView.OnItem
 
 	
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+	public void onItemClick(AdapterView<?> _avParent, View _view, int _iPosition, long _id) 
 	{
 		Intent intent = new Intent(TanderFriendsList.this, ChatActivity.class);
-		HashMap<String,String> hmMap =(HashMap)parent.getItemAtPosition(position);
-		String strFriendName = hmMap.get(Config.TAG_NAME).toString();
-		intent.putExtra("CHAT_TANDER_FRIEND_NAME",strFriendName);   
+		HashMap<String,String> hmMap =(HashMap)_avParent.getItemAtPosition(_iPosition);
+		String strFriendName = hmMap.get(Config.TAG_USERNAME).toString();
+		intent.putExtra("CHAT_TANDER_FRIEND_NAME",strFriendName);  
 		startActivity(intent);
 	}
 }
