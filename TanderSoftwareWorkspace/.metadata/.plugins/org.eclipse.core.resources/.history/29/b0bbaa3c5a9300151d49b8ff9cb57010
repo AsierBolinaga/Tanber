@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+    	
+        <ImageView 
+            android:id="@+id/list_status" 
+            android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+            android:drawable="@drawable/ic_online"/>
+        
+        <TextView 
+		    android:id="@+id/list_username"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:drawableRight="@drawable/arrow"
+		    android:orientation="horizontal"
+		    android:padding="@dimen/pad_10dp"
+		    android:textColor="@color/black"
+		    android:textSize="@dimen/txt_18sp"
+		    
+		    android:drawablePadding="@dimen/pad_10dp" />
+            
+    </LinearLayout>
+	
+	
+</ScrollView>

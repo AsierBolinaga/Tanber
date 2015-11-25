@@ -3,6 +3,7 @@ package abolinaga.tander;
 import java.util.HashMap;
 
 import abolinaga.tander.custom.CustomActivity;
+import abolinaga.tander.utils.Const;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 
 public class RegisterActivity extends CustomActivity
 {
-    private EditText editTextName;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextEmail;
@@ -27,7 +27,6 @@ public class RegisterActivity extends CustomActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		
-		editTextName = (EditText) findViewById(R.id.editTextName);
         editTextUsername = (EditText) findViewById(R.id.editTextUserName);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -53,7 +52,6 @@ public class RegisterActivity extends CustomActivity
 	
 	private void registerUser() 
     {
-        final String strName = editTextName.getText().toString().trim();
         final String strUsername = editTextUsername.getText().toString().trim();
         final String strPassword = editTextPassword.getText().toString().trim();
         final String strEmail = editTextEmail.getText().toString().trim();
@@ -90,14 +88,14 @@ public class RegisterActivity extends CustomActivity
 			@Override
 			protected String doInBackground(Void... vParams) 
 			{
-				HashMap<String,String> hmParams = new HashMap<String,String>();
-				hmParams.put(Config.KEY_USER_NAME,strName);                
-				hmParams.put(Config.KEY_USER_USERNAME,strUsername);                
-				hmParams.put(Config.KEY_USER_PASSWORD,strPassword);
-				hmParams.put(Config.KEY_USER_EMAIL,strEmail);
+				HashMap<String,String> hmParams = new HashMap<String,String>();            
+				hmParams.put(Const.KEY_USER_USERNAME,strUsername);                
+				hmParams.put(Const.KEY_USER_PASSWORD,strPassword);
+				hmParams.put(Const.KEY_USER_EMAIL,strEmail);
+				hmParams.put(Const.KEY_USER_ONLINE,"0");
 				
 				RequestHandler rh = new RequestHandler();
-				String res = rh.sendPostRequest(Config.URL_REGISTER, hmParams);
+				String res = rh.sendPostRequest(Const.URL_REGISTER, hmParams);
 					
 				return res;
 			}

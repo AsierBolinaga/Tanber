@@ -35,7 +35,6 @@ public class Utils
 			String btn2, DialogInterface.OnClickListener listener1,
 			DialogInterface.OnClickListener listener2)
 	{
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 		// builder.setTitle(R.string.app_name);
 		builder.setMessage(msg).setCancelable(false)
@@ -203,9 +202,7 @@ public class Utils
 	 */
 	public static AlertDialog showDialog(Context ctx, int msg)
 	{
-
 		return showDialog(ctx, ctx.getString(msg));
-
 	}
 
 	/**
@@ -223,7 +220,6 @@ public class Utils
 	public static void showDialog(Context ctx, int title, int msg,
 			DialogInterface.OnClickListener listener)
 	{
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 		builder.setMessage(msg).setCancelable(false)
 				.setPositiveButton(android.R.string.ok, listener);
@@ -260,13 +256,13 @@ public class Utils
 	 */
 	public static final void hideKeyboard(Activity ctx, View v)
 	{
-
 		try
 		{
 			InputMethodManager imm = (InputMethodManager) ctx
 					.getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-		} catch (Exception e)
+		} 
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

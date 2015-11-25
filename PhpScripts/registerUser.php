@@ -1,12 +1,12 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
-	 $name = $_POST['name']; 
 	 $username = $_POST['username']; 
 	 $password = $_POST['password']; 
 	 $email = $_POST['email'];  
+	 $online = $_POST['online'];
 
-	 if($name == '' || $username == '' || $password == '' || $email == '')
+	 if($username == '' || $password == '' || $email == '')
 	 { 
 		echo 'please fill all values'; 
 	 }
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 			}
 			else
 			{
-				$sql = "INSERT INTO TanderUsers (name,username,password,email) VALUES ('$name','$username','$password','$email')"; 
+				$sql = "INSERT INTO TanderUsers (username,password,email,online) VALUES ('$username','$password','$email','$online')"; 
 				if(mysqli_query($con,$sql))
 				{ 
 					echo 'successfully registered'; 
@@ -44,3 +44,4 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 	 }
  }
 ?>
+

@@ -8,11 +8,15 @@
  
 	 $sql = "SELECT * FROM TanderUsers WHERE username='$username' and password='$password'";
 	 
-	 $check = mysqli_fetch_array(mysqli_query($con,$sql));
+	 $r = mysqli_fetch_array(mysqli_query($con,$sql));
+	   
+	 $result = array(); 
 	 
-	 if(isset($check))
+	 array_push($result,array("id"=>$r['id']));
+	 
+	 if(isset($r))
 	 {
-		 echo "successfully logged";
+		 echo json_encode(array('result'=>$result));
 	 }
 	 else
 	 {

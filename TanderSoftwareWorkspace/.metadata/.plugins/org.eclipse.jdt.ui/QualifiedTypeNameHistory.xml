@@ -21,5 +21,6 @@
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="abolinaga.tander.TanderFriendsList"/>
+<fullyQualifiedTypeName name="abolinaga.tander.utils.Const"/>
 <fullyQualifiedTypeName name="abolinaga.tander.OptionsActivity"/>
 </qualifiedTypeNameHistroy>

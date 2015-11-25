@@ -37,5 +37,4 @@ public class TouchEffect implements OnTouchListener
 		}
 		return false;
 	}
-
 }
