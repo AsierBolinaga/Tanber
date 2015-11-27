@@ -14,7 +14,6 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="org.json.JSONException"/>
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
-<fullyQualifiedTypeName name="android.widget.ListAdapter"/>
 <fullyQualifiedTypeName name="android.widget.SimpleAdapter"/>
 <fullyQualifiedTypeName name="android.hardware.camera2.CameraCharacteristics.Key"/>
 <fullyQualifiedTypeName name="java.util.List"/>
@@ -23,4 +22,9 @@
 <fullyQualifiedTypeName name="abolinaga.tander.TanderFriendsList"/>
 <fullyQualifiedTypeName name="abolinaga.tander.utils.Const"/>
 <fullyQualifiedTypeName name="abolinaga.tander.OptionsActivity"/>
+<fullyQualifiedTypeName name="abolinaga.tander.R.drawable"/>
+<fullyQualifiedTypeName name="android.R.integer"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="android.widget.ListAdapter"/>
+<fullyQualifiedTypeName name="java.lang.Void"/>
 </qualifiedTypeNameHistroy>
