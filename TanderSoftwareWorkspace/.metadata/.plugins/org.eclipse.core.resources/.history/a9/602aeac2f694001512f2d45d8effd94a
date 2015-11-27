@@ -146,7 +146,7 @@ public class ChatActivity extends CustomActivity
 		ParseObject po = new ParseObject("Chat");
 		po.put("sender", OptionsActivity.user.getUsername());
 		po.put("receiver", strFrined);
-		//po.put("createdAt", "");
+		po.put("createdAt", "");
 		po.put("message", s);
 		po.saveEventually(new SaveCallback() {
 
